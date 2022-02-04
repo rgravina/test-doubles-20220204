@@ -1,6 +1,9 @@
 package smarthome;
 
-public class BulbSpy implements Bulb {
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class BulbMock implements Bulb {
     private boolean turnOn_wasCalled = false;
     private boolean turnOff_wasCalled = false;
 
@@ -20,5 +23,15 @@ public class BulbSpy implements Bulb {
 
     public boolean turnOffWasCalled() {
         return turnOff_wasCalled;
+    }
+
+    public void verifyTurnedOn() {
+        assertTrue(this.turnOnWasCalled());
+        assertFalse(this.turnOffWasCalled());
+    }
+
+    public void verifyTurnedOff() {
+        assertTrue(this.turnOffWasCalled());
+        assertFalse(this.turnOnWasCalled());
     }
 }

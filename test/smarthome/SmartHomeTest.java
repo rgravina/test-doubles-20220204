@@ -2,16 +2,24 @@ package smarthome;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 class SmartHomeTest {
     @Test
     void whenSwitchIsOn_turnsOnLightBulb() {
         Switch toggle = new AlwaysOnSwitch();
-        BulbSpy bulb = new BulbSpy();
+        BulbMock bulb = new BulbMock();
 
         new SmartHome().run(bulb, toggle);
 
-        assertTrue(bulb.turnOnWasCalled());
+        bulb.verifyTurnedOn();
+    }
+
+    @Test
+    void whenSwitchIsOff_turnsOffLightBulb() {
+        Switch toggle = new AlwaysOffSwitch();
+        BulbMock bulb = new BulbMock();
+
+        new SmartHome().run(bulb, toggle);
+
+        bulb.verifyTurnedOff();
     }
 }
